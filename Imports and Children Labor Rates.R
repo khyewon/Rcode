@@ -1,16 +1,3 @@
----
-title: "Final Project"
-author: "Hyewon Kwon"
-date: "2023-04-05"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-
-```{r get dataset}
 rm(list = ls())
 library(WDI)
 library(tidyverse)
@@ -105,4 +92,3 @@ ggplot(subset(my_data, cooksd <= cutoff), aes(imports, clabor)) +
     labs(title = "Scatter Plot", x = "Import rate", y = "Children Labor Rate")
 
 #ggsave("final_plot_out.png")
-```

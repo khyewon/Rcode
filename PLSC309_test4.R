@@ -1,3 +1,47 @@
+options(scipen = 999)
+library(ggplot2)
+library(dplyr)
+library(httr)
+library(WDI)
+library(stargazer)
+
+# read data file
+test_df <- read.csv("./test4.csv")
+
+# DV = ffp_hf       human fight and brain drain
+# IV = bci_bci      bayesian corruption indicator
+
+
+# does perceived corruption lead to human flight/brain drain
+
+# visualizing relationship
+p1 <- ggplot(test_df, aes(x = bci_bci, y = ffp_hf)) +
+     geom_point(size = 1.2, shape = 18, colour = 'tomato2', alpha = 0.5) +
+     geom_smooth(method = 'lm', colour = 'steelblue', size = 1.5) +
+     labs(title = 'Perceived Corruption and Brain Drain',
+          subtitle = 'From QOG Data',
+          caption = 'Source: QOG',
+          x = 'Bayesian Corruption Indicator',
+          y = 'Brain Drain')
+# ggsave('plot1.png', width = 8, hiehgt = 6)
+# p1: pretty clear linear relationship(positive relationship)
+
+# ols regression model
+f1 = lm(test_df$ffp_hf ~ test_df$bci_bci)
+stargazer(f1, type = 'html',
+          out = 'model1.html',
+          covariate.labels = 'Corruption',
+          dep.var.labels = '',
+          dep.var.caption = 'Brain Drain',
+          title = 'Corruption and Brain Drain')
+BROWSE('model1.html')
+# substantively significant at point 1 level because of the amount of dependent variable range : the amount of independent variable range
+# p-value: probability of beta hat is less than 0.01 therefore, I'm going to reject the Null Hypothesis that there is no relationship
+# Constant: y-intercept. hypothetical value where dv is going to 0.
+# R^2: strength of correlation(how well is the data set is sit on the line) pretty well capturing the data
+# Residual standard error: RMSE. specific estimate of the average error in regression line in here
+# F Stat: statistically significant, reject Null hypothesis
+
 # voh_gti, gii_gii
 p2 <- ggplot(df, aes(x = voh_gti, y = gii_gii)) +
      geom_point(size = 1.2, shape = 18, colour = 'tomato2', alpha = 0.5) +
@@ -18,6 +62,7 @@ stargazer(f2, type = 'html',
           dep.var.caption = 'Gender Inequality',
           title = 'Gender Inequality and Global Terrorism Index')
 BROWSE('genter.html')
+
 
 # x = IV = gti
 # y = DV = gii
@@ -100,6 +145,6 @@ tscore <- round(((rbeta - 0) / sebeta), 3)
 quantile <- qt(0.025, length(df2$y) - 2)
 
 
-p1 <- ggplot(df2, aes(x = x, y = y)) +
+p3 <- ggplot(df2, aes(x = x, y = y)) +
      geom_point(size = 1.2, shape = 18, colour = 'tomato2', alpha = 0.5) +
      geom_smooth(method = 'lm', colour = 'steelblue', size = 1.5)

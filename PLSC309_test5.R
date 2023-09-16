@@ -1,5 +1,4 @@
 options(scipen = 999)
-setwd("E:\\University\\PSU\\spring 2022\\PLSC309\\testHW")
 library(ggplot2)
 library(dplyr)
 library(httr)
@@ -9,7 +8,7 @@ library(gridExtra)
 
 
 # import the data
-df <- read_excel("test5data.xlsx")
+df <- read_excel("./PLSC309_test5data.xlsx")
 
 # x = independent variable = primary, election2011
 # y = dependent variable = election2016

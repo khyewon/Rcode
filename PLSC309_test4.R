@@ -6,7 +6,7 @@ library(WDI)
 library(stargazer)
 
 # read data file
-test_df <- read.csv("./PLSC309_test4.csv")
+test_df <- read.csv("./PLSC309_test4data.csv")
 
 # DV = ffp_hf       human fight and brain drain
 # IV = bci_bci      bayesian corruption indicator
